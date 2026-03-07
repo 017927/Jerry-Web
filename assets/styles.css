@@ -1,0 +1,159 @@
+html, body {
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+}
+body {
+    margin: 0;
+    overflow: hidden;
+    background: rgba(0,0,0, 1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+@keyframes bgFadeIn {
+    0% {
+        opacity: 0;
+        filter: blur(20px);
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+    }
+}
+
+canvas {
+    outline: none;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    animation: bgFadeIn 2.5s cubic-bezier(0.22, 1, 0.36, 1) 2s forwards;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.pointer-events-auto {
+    pointer-events: auto;
+}
+
+.spline-watermark {
+    display: none !important;
+}
+
+@keyframes smoothFadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.animate-smooth-fade-up {
+    opacity: 0;
+    animation: smoothFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes smoothFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.animate-smooth-fade-in {
+    opacity: 0;
+    animation: smoothFadeIn 1.5s ease-out forwards;
+}
+
+@keyframes logoIntro {
+    0% { opacity: 0; filter: blur(15px); transform: scale(0.8); }
+    100% { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+
+@keyframes logoPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes spinSmooth {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.animate-splash-wrapper {
+    animation:
+        logoIntro 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+        logoPulse 1.5s ease-in-out 0.8s infinite;
+}
+
+.animate-spin-smooth {
+    animation: spinSmooth 3s linear infinite;
+}
+
+@keyframes flowGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#mouse-glow {
+    position: fixed;
+    top: -150px;
+    left: -150px;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+    mix-blend-mode: screen;
+    will-change: left, top, width, height, opacity;
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.45), rgba(135, 206, 235, 0.45), rgba(255, 105, 180, 0.45));
+    background-size: 200% 200%;
+    -webkit-mask-image: radial-gradient(circle, black 0%, transparent 60%);
+    mask-image: radial-gradient(circle, black 0%, transparent 60%);
+}
+
+#mouse-glow.glow-hover {
+    width: 450px;
+    height: 450px;
+    opacity: 1;
+    animation: flowGradient 3s ease infinite;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
